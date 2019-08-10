@@ -11,7 +11,6 @@
 #include "lcd.h"
 #include "UI.h"
 #include "EEPROM.h"
-
 #include "printf.h"
 
 /**
@@ -23,6 +22,11 @@
 /**
 *		2019年8月2日13:02:35：将串口菜单放入usart.c中执行 串口指令接收有问题 按键14仍然不管用
 */
+/**
+*		2019年8月10日22:03:28：将UI.c中的sprintf函数删除 改用自己编写的 float_to_char函数 前几位显示正常 调节系数的后两位显示不正常为 0.00099和0.00009
+*													github版本控制开始使用         |        完善代码注释（标准化） float_to_char的修改  控制转过角度实现  通过串口接收指令
+*/
+
 
 /*全局变量定义*/
 u8 Dir_rand;//全局变量|电机转向标志位
@@ -159,14 +163,16 @@ int main(void)
 			setspeed = 0;
 		}
 		
+		
+		
 		/*误差过大报警*/
-		if((setspeed-Motor_Read_Speed()>20||setspeed-Motor_Read_Speed()<-20) && Mode)//误差超过20并且在模式1下报警
+		/*if((setspeed-Motor_Read_Speed()>20||setspeed-Motor_Read_Speed()<-20) && Mode)//误差超过20并且在模式1下报警
 		{
 			BEEP = 1;
 		}else 
 		{
 			BEEP = 0;
-		}
+		}*///调试的时候注释掉
 		
 		Motor_Set_Speed(setspeed);//速度调整函数
 		

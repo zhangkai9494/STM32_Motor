@@ -7,10 +7,32 @@ int x=5,y =150;//速度时间图像本次点
 int last_x = 5,last_y = 150;//速度时间图像上次点
 int last_ay = 280;//角度时间图像上次点
 int last_sety = 150;
-u8 kp0[8],ki0[8],kd0[8];//8位数组存放PID参数转化为Char型的值
-u8 mp0[8];//存放PID参数调整系数转化为Char型数组后的值
+char kp0[8],ki0[8],kd0[8];//8位数组存放PID参数转化为Char型的值
+char mp0[8];//存放PID参数调整系数转化为Char型数组后的值
 
 extern u8 Mode;
+
+/**
+*		函数名：float_to_char
+*		作用：将小数点后5位的float型数据变为char型储存在传入的数组中
+*		入口参数：float型的原始数据 8个元素的char型数组
+*		返回值：无
+*		修改日期：2019年8月10日21:24:48
+*/
+
+void float_to_char(float number,char buff[8])
+{
+	buff[0] = (int)number%10+48;
+	buff[1] = '.';
+	buff[2] = (int)(number*10)%10+48;
+	buff[3] = (int)(number*100)%10+48;
+	buff[4] = (int)(number*1000)%10+48;
+	buff[5] = (int)(number*10000)%10+48;
+	buff[6] = (int)(number*100000)%10+48;
+	buff[7] = '\0';
+}
+
+
 
 
 /**
@@ -35,10 +57,11 @@ void UI_Working(void)
 	extern float mp;
 	
 	/*将float型参数转化为char型储存在数组中*/
-	sprintf(kp0,"%.5f",kp);
-	sprintf(ki0,"%.5f",ki);
-	sprintf(kd0,"%.5f",kd);
-	sprintf(mp0,"%.5f",mp);
+	float_to_char(kp,kp0);
+	float_to_char(ki,ki0);
+	float_to_char(kd,kd0);
+	float_to_char(mp,mp0);
+	
 	
 	/*画线框*/
 	POINT_COLOR=BLUE;

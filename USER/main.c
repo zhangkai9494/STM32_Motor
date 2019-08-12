@@ -26,6 +26,12 @@
 *		2019年8月10日22:03:28：将UI.c中的sprintf函数删除 改用自己编写的 float_to_char函数 前几位显示正常 调节系数的后两位显示不正常为 0.00099和0.00009
 *													github版本控制开始使用         |        完善代码注释（标准化） float_to_char的修改  控制转过角度实现  通过串口接收指令
 */
+/**
+*		2019年8月11日14:08:52：float_to_char函数没有问题 错误未知
+*/
+/**
+*		2019年8月12日11:42:38：串口基本完成 数字判定有问题 加入新指令解决 串口指令部分完成 调节系数后两位仍然显示不正常
+*/
 
 
 /*全局变量定义*/
@@ -46,7 +52,13 @@ u8 key;//按下的按键的键值|主要用于UI上按键键值的显示
 void Mode_Switch(u8 mode);//模式切换函数
 void Apply(u8 mode);//应用变更函数
 
-
+/**
+*		函数名：main
+*		作用：程序的主体部分，各种模块、参数的初始化，从E2PROM读取数据，刷新、反馈按键
+*		入口参数：无
+*		返回值：空
+*		修改日期：2019年8月11日14:15:47
+*/
 
 /*主函数*/
 int main(void)
@@ -166,29 +178,35 @@ int main(void)
 		
 		
 		/*误差过大报警*/
-		/*if((setspeed-Motor_Read_Speed()>20||setspeed-Motor_Read_Speed()<-20) && Mode)//误差超过20并且在模式1下报警
+		if((setspeed-Motor_Read_Speed()>20||setspeed-Motor_Read_Speed()<-20) && Mode)//误差超过20并且在模式1下报警
 		{
 			BEEP = 1;
 		}else 
 		{
 			BEEP = 0;
-		}*///调试的时候注释掉
+		}//调试的时候注释掉
 		
 		Motor_Set_Speed(setspeed);//速度调整函数
 		
 		TIM_SetCompare1(TIM3,skap);//空占比调整函数
 		
-		//Select_order();//读取串口发送过来的命令
+		Select_order();//读取串口发送过来的命令
 		
 		UI_Working();//用户图形界面更新
 		
 		
 		if(!Mode)//模式2下更新角度
 			Motor_Set_Angle(setangle);
-		
 	}
 }
 
+/**
+*		函数名：Mode_Switch
+*		作用：在设定速度和设定角度模式中进行转换
+*		入口参数：uchar型模式标志
+*		返回值：无
+*		修改日期：2019年8月11日14:11:25
+*/
 
 /**
 *		模式选择函数
@@ -213,6 +231,13 @@ void Mode_Switch(u8 mode)
 	}
 }
 
+/**
+*		函数名：Apply
+*		作用：不同模式下 应用对PID参数、角度设定的变更
+*		入口参数：uchar型模式标志
+*		返回值：无
+*		修改日期：2019年8月11日14:13:37
+*/
 
 /**
 *		应用变更

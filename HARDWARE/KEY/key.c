@@ -4,10 +4,17 @@
 #include "delay.h"
 
 /**
+*		函数名：
+*		作用：
+*		入口参数：
+*		返回值：
+*		修改日期：
+*/
+
+/**
 *		按键有问题|玄学问题
 *		14号按键无法读取 加上第71行代码后可以但是原因未知|失败
 **/
-
 void KEY_Init(void) //IO初始化
 { 
  	GPIO_InitTypeDef GPIO_InitStructure;
@@ -24,6 +31,15 @@ void KEY_Init(void) //IO初始化
  	GPIO_Init(GPIOF, &GPIO_InitStructure);//初始化GPIO
 
 }
+
+
+/**
+*		函数名：
+*		作用：
+*		入口参数：
+*		返回值：
+*		修改日期：
+*/
 
 int GetKey(void)//按键初始化函数
 {

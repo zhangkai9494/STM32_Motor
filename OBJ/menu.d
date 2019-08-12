@@ -34,4 +34,5 @@
 ..\obj\menu.o: D:\Program Files (x86)\keil\ARM\ARMCC\Bin\..\include\stdio.h
 ..\obj\menu.o: ..\HARDWARE\MOTOR\motor.h
 ..\obj\menu.o: ..\HARDWARE\PID\pid.h
+..\obj\menu.o: ..\HARDWARE\EEPROM\EEPROM.h
 ..\obj\menu.o: ..\SYSTEM\printf\printf.h

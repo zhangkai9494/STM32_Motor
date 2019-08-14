@@ -6,6 +6,10 @@
 #include "EEPROM.h"
 #include "printf.h" 
 
+/*外部函数调用*/
+extern void Mode_Switch(u8 mode);
+
+
 /**
 *		菜单选择函数
 *		接收串口发送的指令并作出相应处理
@@ -17,7 +21,10 @@
 *		setkp [一位整数部分5位小数部分的float型数据]					//设定PID参数 比例系数
 *		setki [一位整数部分5位小数部分的float型数据]					//设定PID参数 积分系数
 *		setkd [一位整数部分5位小数部分的float型数据]					//设定PID参数 微分系数
+*		setmode [0\1]																				//设定运行模式 0角度 1速度
+*
 *		2019年8月12日12:37:26新更新：加入参数 -d -h -u 指定输入数字位数
+*   2019年8月14日17:04:02新更新：加入指令setmode 修改setkp/i/d，添加不同模式下EEPROM储存区块选择的功能
 */
 
 /*内部函数将Char型数据转换为int型*/
@@ -36,6 +43,7 @@ void Select_order(void)
 	char Command[25];
 	
 	/*外部变量引用|方便修改*/
+	extern u8 Mode;	//可以不用，但是按键和串口之间将无法联动 所以仍然保留全局修改方法
 	extern int setspeed;
 	extern int setangle;
 	extern int setangle_buff;
@@ -60,6 +68,7 @@ void Select_order(void)
 			Printf("Command:\r\n");
 			Printf("	setspeed [1|2|3 bit int]\r\n");
 			Printf("	setangle [1|2|3 bit int]\r\n");
+			Printf("	setmode [0|1]\r\n");
 			Printf("	setdir [0|1]\r\n");
 			Printf("	setkp [float]\r\n");
 			Printf("	setki [float]\r\n");
@@ -108,6 +117,7 @@ void Select_order(void)
 			if(Char_to_int(Command[9]) != 0 && Char_to_int(Command[10]) != 0 && Char_to_int(Command[11])!= 0)
 			{
 				setangle_buff = Char_to_int(Command[9]) * 100 + Char_to_int(Command[10] * 10) + Char_to_int(Command[11]);
+				printf("%d",setangle_buff);
 			}else if(Char_to_int(Command[9]) != 0 && Char_to_int(Command[10]) != 0 && Command[11] == '\0')
 			{
 				setangle_buff = Char_to_int(Command[9]) * 10 + Char_to_int(Command[10]);
@@ -136,6 +146,22 @@ void Select_order(void)
 			EEPROM_Write(0x01,setangle_buff);//更改EEPROM
 			setangle = setangle_buff;//更改后立即执行
 			Printf("Order:[setangle] Excute successfully!\r\n");
+/**************************************************************************************************///设定模式指令
+		}else if(Command[0] == 's'&& Command[1] == 'e' && Command[2] == 't' && Command[3] == 'm' && Command[4] == 'o' && Command[5] == 'd' && Command[6] == 'e')
+		{
+			if(Char_to_int(Command[8]) == 0)
+			{
+				Mode = 0;
+				Mode_Switch(Mode);
+			}else if(Char_to_int(Command[8]) == 1)
+			{
+				Mode = 1;
+				Mode_Switch(Mode);
+			}else
+			{
+				Printf("Wrong Input!\r\n");//输入非法提示
+			}
+			Printf("Order:[setmode] Excute successfully!\r\n");
 /**************************************************************************************************///设定转向指令
 		}else if(Command[0] == 's'&& Command[1] == 'e' && Command[2] == 't' && Command[3] == 'd' && Command[4] == 'i' && Command[5] == 'r')
 		{
@@ -156,7 +182,10 @@ void Select_order(void)
 			if(Command[7] == '.' && Command[13]== '\0')
 			{
 				kp = Char_to_int(Command[6]) + (float)Char_to_int(Command[8]) * 0.1 + (float)Char_to_int(Command[9]) * 0.01 + (float)Char_to_int(Command[10]) * 0.001 + (float)Char_to_int(Command[11]) * 0.0001 + (float)Char_to_int(Command[12]) * 0.00001;
-				EEPROM_WriteFloat(0x03,kp);
+				if(Mode)
+					EEPROM_WriteFloat(0x03,kp);
+				else
+					EEPROM_WriteFloat(0x23,kp);
 				PID_init(kp,ki,kd,skap);
 			}else
 			{
@@ -169,7 +198,10 @@ void Select_order(void)
 			if(Command[7] == '.' && Command[13]== '\0')
 			{
 				ki = Char_to_int(Command[6]) + (float)Char_to_int(Command[8]) * 0.1 + (float)Char_to_int(Command[9]) * 0.01 + (float)Char_to_int(Command[10]) * 0.001 + (float)Char_to_int(Command[11]) * 0.0001 + (float)Char_to_int(Command[12]) * 0.00001;
-				EEPROM_WriteFloat(0x0B,ki);
+				if(Mode)
+					EEPROM_WriteFloat(0x0B,ki);
+				else
+					EEPROM_WriteFloat(0x2B,ki);
 				PID_init(kp,ki,kd,skap);
 			}else
 			{
@@ -182,7 +214,10 @@ void Select_order(void)
 			if(Command[7] == '.' && Command[13]== '\0')
 			{
 				kd = Char_to_int(Command[6]) + (float)Char_to_int(Command[8]) * 0.1 + (float)Char_to_int(Command[9]) * 0.01 + (float)Char_to_int(Command[10]) * 0.001 + (float)Char_to_int(Command[11]) * 0.0001 + (float)Char_to_int(Command[12]) * 0.00001;
-				EEPROM_WriteFloat(0x13,kd);
+				if(Mode)
+					EEPROM_WriteFloat(0x13,kd);
+				else
+					EEPROM_WriteFloat(0x33,kd);
 				PID_init(kp,ki,kd,skap);
 			}else
 			{

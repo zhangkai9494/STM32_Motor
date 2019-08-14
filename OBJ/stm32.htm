@@ -3,11 +3,11 @@
 <title>Static Call Graph - [..\OBJ\stm32.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\OBJ\stm32.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Tue Aug 13 12:09:15 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Wed Aug 14 18:21:06 2019
 <BR><P>
 <H3>Maximum Stack Usage =        336 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
-__rt_entry_main &rArr; main &rArr; Select_order &rArr; Printf &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
+__rt_entry_main &rArr; main &rArr; Select_order &rArr; Mode_Switch &rArr; EEPROM_ReadFloat &rArr; EEPROM_Read &rArr; IIC_Read_Byte &rArr; IIC_NAck
 <P>
 <H3>
 Functions with no stack information
@@ -252,7 +252,7 @@ Global Symbols
 
 <P><STRONG><a name="[62]"></a>__rt_entry_main</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000D))
 <BR><BR>[Stack]<UL><LI>Max Depth = 336 + Unknown Stack Size
-<LI>Call Chain = __rt_entry_main &rArr; main &rArr; Select_order &rArr; Printf &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
+<LI>Call Chain = __rt_entry_main &rArr; main &rArr; Select_order &rArr; Mode_Switch &rArr; EEPROM_ReadFloat &rArr; EEPROM_Read &rArr; IIC_Read_Byte &rArr; IIC_NAck
 </UL>
 <BR>[Calls]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;exit
@@ -464,7 +464,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_char_file
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Init
+<BR>[Called By]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Select_order
+<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Init
 </UL>
 
 <P><STRONG><a name="[6b]"></a>__2sprintf</STRONG> (Thumb, 34 bytes, Stack size 32 bytes, noretval__2sprintf.o(.text))
@@ -1114,7 +1115,8 @@ Global Symbols
 <LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EEPROM_ReadFloat
 <LI><a href="#[8b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EEPROM_Read
 </UL>
-<BR>[Called By]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<BR>[Called By]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Select_order
+<LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[bb]"></a>Motor_Init</STRONG> (Thumb, 38 bytes, Stack size 8 bytes, motor.o(i.Motor_Init))
@@ -1231,9 +1233,9 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 184 + Unknown Stack Size
 <LI>Call Chain = Printf &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
-<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_SendData
+<BR>[Calls]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_SendData
 <LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_GetFlagStatus
+<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 <LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
 </UL>
@@ -1270,16 +1272,18 @@ Global Symbols
 <P><STRONG><a name="[a]"></a>SVC_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f10x_it.o(i.SVC_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(RESET)
 </UL>
-<P><STRONG><a name="[cb]"></a>Select_order</STRONG> (Thumb, 2944 bytes, Stack size 152 bytes, menu.o(i.Select_order))
+<P><STRONG><a name="[cb]"></a>Select_order</STRONG> (Thumb, 3204 bytes, Stack size 152 bytes, menu.o(i.Select_order))
 <BR><BR>[Stack]<UL><LI>Max Depth = 336 + Unknown Stack Size
-<LI>Call Chain = Select_order &rArr; Printf &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
+<LI>Call Chain = Select_order &rArr; Mode_Switch &rArr; EEPROM_ReadFloat &rArr; EEPROM_Read &rArr; IIC_Read_Byte &rArr; IIC_NAck
 </UL>
 <BR>[Calls]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;PID_init
 <LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_dir
 <LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EEPROM_WriteFloat
 <LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EEPROM_Write
+<LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Mode_Switch
 <LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Char_to_int
 <LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Printf
+<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2f
 <LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
 <LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
@@ -1456,10 +1460,10 @@ Global Symbols
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_DrawLine
 <LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_Read_Angle
 <LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Motor_Read_Speed
+<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;float_to_char
 <LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_ShowxNum
 <LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_ShowString
 <LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_ShowNum
-<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;float_to_char
 <LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfrcmple
 <LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfcmple
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2f
@@ -1574,7 +1578,7 @@ Global Symbols
 </UL>
 <P><STRONG><a name="[63]"></a>main</STRONG> (Thumb, 1566 bytes, Stack size 0 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 336 + Unknown Stack Size
-<LI>Call Chain = main &rArr; Select_order &rArr; Printf &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
+<LI>Call Chain = main &rArr; Select_order &rArr; Mode_Switch &rArr; EEPROM_ReadFloat &rArr; EEPROM_Read &rArr; IIC_Read_Byte &rArr; IIC_NAck
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_init
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms

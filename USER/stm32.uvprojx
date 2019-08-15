@@ -365,7 +365,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F10X_HD,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\CORE;..\USER;..\STM32F103_FWLiB\inc;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\HARDWARE\KEY;..\HARDWARE\LED;..\HARDWARE\TIMER;..\HARDWARE\EXTI;..\HARDWARE\MOTOR;..\HARDWARE\PID;..\HARDWARE\BEEP;..\SYSTEM\printf;..\SYSTEM\menu;..\HARDWARE\LCD;..\SYSTEM\UI;..\HARDWARE\IIC;..\HARDWARE\EEPROM</IncludePath>
+              <IncludePath>..\CORE;..\USER;..\STM32F103_FWLiB\inc;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\HARDWARE\KEY;..\HARDWARE\LED;..\HARDWARE\TIMER;..\HARDWARE\EXTI;..\HARDWARE\MOTOR;..\HARDWARE\PID;..\HARDWARE\BEEP;..\SYSTEM\printf;..\SYSTEM\menu;..\HARDWARE\LCD;..\SYSTEM\UI;..\HARDWARE\IIC;..\HARDWARE\EEPROM;..\SYSTEM\function</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -502,6 +502,11 @@
               <FileName>UI.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\SYSTEM\UI\UI.c</FilePath>
+            </File>
+            <File>
+              <FileName>function.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\SYSTEM\function\function.c</FilePath>
             </File>
           </Files>
         </Group>

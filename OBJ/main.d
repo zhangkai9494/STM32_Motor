@@ -43,3 +43,4 @@
 ..\obj\main.o: ..\SYSTEM\UI\UI.h
 ..\obj\main.o: ..\HARDWARE\EEPROM\EEPROM.h
 ..\obj\main.o: ..\SYSTEM\printf\printf.h
+..\obj\main.o: ..\SYSTEM\function\function.h

@@ -199,10 +199,11 @@ void TIM4_IRQHandler(void)//¶¨Ê±Æ÷4ÖĞ¶Ï·şÎñº¯Êı|¸ù¾İµ±Ç°ËÙ¶ÈÓÉpidËã·¨µÃµ½µ±Ç°¿ÕÕ
 	extern int setspeed;
 	extern int setangle;
 	extern u8 Mode;
-	skap += PID_realize(setspeed,Motor_Read_Speed());
 	
 	if(!Mode)//½Ç¶ÈPIDµ÷ÕûÄ£Ê½
-		skap = PID_Angle(setangle,Motor_Read_Angle());
+		skap += PID_Angle(setangle,Motor_Read_Angle());
+	else
+		skap += PID_realize(setspeed,Motor_Read_Speed());
 	
 	TIM_ClearITPendingBit(TIM4,TIM_IT_Update);
 }

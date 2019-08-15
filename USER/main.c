@@ -51,6 +51,10 @@
 *		2019年8月15日15:15:59：mian.c大改，大段代码移动到单独函数function中，主函数现在更容易阅读了
 */
 
+/**
+*		2019年8月15日16:16:26：修复timer.c中定时器中关于不同模式下PID调整选择的代码 修复设定的角度没有上传给单片机的BUG 调整了角度PID参数 在UI界面上添加角度设定指示线
+*/
+
 /*全局变量定义*/
 u8 Dir_rand;//全局变量|电机转向标志位
 u8 Mode = 1;//速度|角度调整模式 0：角度 1：速度
@@ -107,15 +111,15 @@ int main(void)
 	/*主循环|获取键值|限制空占比|失速报警|空占比调整|UI刷新|串口指令读取*/
 	while(1)
 	{
-		key = GetKey();//获取键值
-		Key_function(key);
-		SkipLimit_function();/*空占比限制|测试得到有效调节范围为999-350*/ /*实际会超过|但是起到了限定不会无限大的作用*/
-		SpeedLimi_function();/*速度限制|规定范围为0-70*/
-		SpeedWarning_function();//误差过大报警，调试的时候注释掉，不然太吵
-		Motor_Set_Speed(setspeed);//速度调整函数
-		TIM_SetCompare1(TIM3,skap);//空占比调整函数
-		Select_order();//读取串口发送过来的命令
-		UI_Working();//用户图形界面更新
+		key = GetKey();								//获取键值
+		Key_function(key);						//针对按下的按键做出反应
+		SkipLimit_function();					/*空占比限制|测试得到有效调节范围为999-350*/ /*实际会超过|但是起到了限定不会无限大的作用*/
+		SpeedLimi_function();					/*速度限制|规定范围为0-70*/
+		SpeedWarning_function();			//误差过大报警，调试的时候注释掉，不然太吵
+		Motor_Set_Speed(setspeed);		//速度调整函数
+		TIM_SetCompare1(TIM3,skap);		//空占比调整函数
+		Select_order();								//读取串口发送过来的命令
+		UI_Working();									//用户图形界面更新
 		
 		if(!Mode)//模式2下更新角度
 			Motor_Set_Angle(setangle);

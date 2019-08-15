@@ -10,6 +10,8 @@ int last_sety = 150;
 char kp0[8],ki0[8],kd0[8];//8位数组存放PID参数转化为Char型的值
 char mp0[8];//存放PID参数调整系数转化为Char型数组后的值
 
+int angle_y = 279;
+
 extern u8 Mode;
 
 /**
@@ -31,9 +33,6 @@ void float_to_char(float number,char buff[8])
 	buff[6] = (int)(number*100000)%10+48;
 	buff[7] = '\0';
 }
-
-
-
 
 /**
 *		UI刷新函数
@@ -160,6 +159,13 @@ void UI_Working(void)
 	POINT_COLOR=GREEN;
 	LCD_DrawLine(5,150-setspeed,235,150-setspeed);
 	last_sety = 150-setspeed;
+	
+	/*角度指示线绘制*/
+	POINT_COLOR=YELLOW;
+	LCD_DrawLine(5,angle_y,235,angle_y);
+	POINT_COLOR=GREEN;
+	LCD_DrawLine(5,279-setangle_buff/3.3,235,279-setangle_buff/3.3);
+	angle_y = 279-setangle_buff/3.3;
 	
 	/*误差过大报警标志|误差超过20*/
 	if(setspeed-Motor_Read_Speed()>20||setspeed-Motor_Read_Speed()<-20)//误差超过20的报警

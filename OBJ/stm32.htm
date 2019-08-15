@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\OBJ\stm32.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\OBJ\stm32.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Thu Aug 15 15:49:45 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Thu Aug 15 17:36:05 2019
 <BR><P>
 <H3>Maximum Stack Usage =        336 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1373,7 +1373,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[2c]"></a>TIM4_IRQHandler</STRONG> (Thumb, 76 bytes, Stack size 16 bytes, timer.o(i.TIM4_IRQHandler))
+<P><STRONG><a name="[2c]"></a>TIM4_IRQHandler</STRONG> (Thumb, 84 bytes, Stack size 16 bytes, timer.o(i.TIM4_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = TIM4_IRQHandler &rArr; Motor_Read_Angle &rArr; __aeabi_d2f
 </UL>
 <BR>[Calls]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ClearITPendingBit
@@ -1503,8 +1503,8 @@ Global Symbols
 <LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM3_PWM_Init
 </UL>
 
-<P><STRONG><a name="[ef]"></a>UI_Working</STRONG> (Thumb, 1466 bytes, Stack size 48 bytes, ui.o(i.UI_Working))
-<BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = UI_Working &rArr; LCD_ShowxNum &rArr; LCD_ShowChar &rArr; LCD_Fast_DrawPoint
+<P><STRONG><a name="[ef]"></a>UI_Working</STRONG> (Thumb, 1718 bytes, Stack size 40 bytes, ui.o(i.UI_Working))
+<BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = UI_Working &rArr; LCD_ShowxNum &rArr; LCD_ShowChar &rArr; LCD_Fast_DrawPoint
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_ShowxNum
 <LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_ShowString

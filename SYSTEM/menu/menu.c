@@ -25,6 +25,7 @@ extern void Mode_Switch(u8 mode);
 *
 *		2019年8月12日12:37:26新更新：加入参数 -d -h -u 指定输入数字位数
 *   2019年8月14日17:04:02新更新：加入指令setmode 修改setkp/i/d，添加不同模式下EEPROM储存区块选择的功能
+*		2019年8月18日12:20:28修复：setangle -h xx指令
 */
 
 /*内部函数将Char型数据转换为int型*/
@@ -100,7 +101,7 @@ void Select_order(void)
 					setspeed = Char_to_int(Command[12]) * 10 + Char_to_int(Command[13]);
 				}else if(Command[10] == 'h')
 				{
-					setspeed = Char_to_int(Command[12]) * 100 + Char_to_int(Command[13] * 10) + Char_to_int(Command[14]);
+					setspeed = Char_to_int(Command[12]) * 100 + Char_to_int(Command[13]) * 10+ Char_to_int(Command[14]);
 				}else
 				{
 					Printf("Wrong Input!\r\n");//输入非法提示
@@ -134,7 +135,7 @@ void Select_order(void)
 					setangle_buff = Char_to_int(Command[12]) * 10 + Char_to_int(Command[13]);
 				}else if(Command[10] == 'h')
 				{
-					setangle_buff = Char_to_int(Command[12]) * 100 + Char_to_int(Command[13] * 10) + Char_to_int(Command[14]);
+					setangle_buff = Char_to_int(Command[12]) * 100 + Char_to_int(Command[13]) * 10 + Char_to_int(Command[14]);
 				}else
 				{
 					Printf("Wrong Input!\r\n");//输入非法提示

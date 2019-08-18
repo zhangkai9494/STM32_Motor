@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\OBJ\stm32.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\OBJ\stm32.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Thu Aug 15 17:36:05 2019
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Sun Aug 18 12:54:52 2019
 <BR><P>
 <H3>Maximum Stack Usage =        336 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1304,7 +1304,7 @@ Global Symbols
 <P><STRONG><a name="[a]"></a>SVC_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f10x_it.o(i.SVC_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(RESET)
 </UL>
-<P><STRONG><a name="[cf]"></a>Select_order</STRONG> (Thumb, 3204 bytes, Stack size 152 bytes, menu.o(i.Select_order))
+<P><STRONG><a name="[cf]"></a>Select_order</STRONG> (Thumb, 3186 bytes, Stack size 152 bytes, menu.o(i.Select_order))
 <BR><BR>[Stack]<UL><LI>Max Depth = 336 + Unknown Stack Size
 <LI>Call Chain = Select_order &rArr; Mode_Switch &rArr; EEPROM_ReadFloat &rArr; EEPROM_Read &rArr; IIC_Read_Byte &rArr; IIC_NAck
 </UL>
@@ -1617,11 +1617,14 @@ Global Symbols
 <LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LCD_Init
 </UL>
 
-<P><STRONG><a name="[f0]"></a>float_to_char</STRONG> (Thumb, 176 bytes, Stack size 16 bytes, ui.o(i.float_to_char))
-<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = float_to_char &rArr; __aeabi_fmul
+<P><STRONG><a name="[f0]"></a>float_to_char</STRONG> (Thumb, 204 bytes, Stack size 32 bytes, ui.o(i.float_to_char))
+<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = float_to_char &rArr; __aeabi_d2f
 </UL>
-<BR>[Calls]<UL><LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
+<BR>[Calls]<UL><LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
+<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
+<LI><a href="#[99]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_fmul
 <LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2iz
+<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UI_Working
 </UL>
@@ -1693,6 +1696,7 @@ Global Symbols
 <LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM5_IRQHandler
 <LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Select_order
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Key_function
+<LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;float_to_char
 <LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Printf
 </UL>
 
@@ -1706,6 +1710,7 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EEPROM_ReadFloat
 <LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Select_order
+<LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;float_to_char
 </UL>
 
 <P><STRONG><a name="[104]"></a>_dadd</STRONG> (Thumb, 332 bytes, Stack size 16 bytes, daddsub_clz.o(x$fpl$dadd), UNUSED)
@@ -1844,6 +1849,7 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Select_order
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Key_function
+<LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;float_to_char
 <LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Printf
 </UL>
 

@@ -19,11 +19,12 @@ extern u8 Mode;
 *		作用：将小数点后5位的float型数据变为char型储存在传入的数组中
 *		入口参数：float型的原始数据 8个元素的char型数组
 *		返回值：无
-*		修改日期：2019年8月10日21:24:48
+*		修改日期：2019年8月18日12:53:22|修复浮点数误差
 */
 
 void float_to_char(float number,char buff[8])
 {
+	number += 0.000001;//加入本行修复浮点数误差
 	buff[0] = (int)number%10+48;
 	buff[1] = '.';
 	buff[2] = (int)(number*10)%10+48;

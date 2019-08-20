@@ -125,7 +125,8 @@ void UI_Working(void)
 		else
 			y = 150-Motor_Read_Speed();
 		
-		/*速度画线|双线*/
+		/*速度画线|三线*/
+		LCD_DrawLine(last_x,last_y+1,x,y+1);
 		LCD_DrawLine(last_x,last_y,x,y);
 		LCD_DrawLine(last_x,last_y-1,x,y-1);
 		last_x = x;

@@ -26,6 +26,7 @@ extern void Mode_Switch(u8 mode);
 *		2019年8月12日12:37:26新更新：加入参数 -d -h -u 指定输入数字位数
 *   2019年8月14日17:04:02新更新：加入指令setmode 修改setkp/i/d，添加不同模式下EEPROM储存区块选择的功能
 *		2019年8月18日12:20:28修复：setangle -h xx指令
+*		2019年8月23日19:49:35修改：调整缩进，使返回的help列表更加美观了
 */
 
 /*内部函数将Char型数据转换为int型*/
@@ -67,18 +68,21 @@ void Select_order(void)
 		if(Command[0] == 'h'&& Command[1] == 'e' && Command[2] == 'l' && Command[3] == 'p')//指令提示符
 		{
 			Printf("Command:\r\n");
-			Printf("	setspeed [1|2|3 bit int]\r\n");
-			Printf("	setangle [1|2|3 bit int]\r\n");
-			Printf("	setmode [0|1]\r\n");
-			Printf("	setdir [0|1]\r\n");
-			Printf("	setkp [float]\r\n");
-			Printf("	setki [float]\r\n");
-			Printf("	setkd [float]\r\n");
+			Printf("  setspeed     [1|2|3 bit int]\r\n");
+			Printf("  setangle     [1|2|3 bit int]\r\n");
+			Printf("  setmode      [0|1]\r\n");
+			Printf("  setdir       [0|1]\r\n");
+			Printf("  setkp        [float]\r\n");
+			Printf("  setki        [float]\r\n");
+			Printf("  setkd        [float]\r\n");
+			Printf("\r\n");
 			Printf("Parameter:\r\n");
-			Printf("	Use '-h' to contral hundred bit\r\n");
-			Printf("	Use '-d' to contral ten bit\r\n");
-			Printf("	Use '-u' to contral bits bit\r\n");
+			Printf("  Use '-h' to contral hundred bit\r\n");
+			Printf("  Use '-d' to contral ten bit\r\n");
+			Printf("  Use '-u' to contral bits bit\r\n");
+			Printf("\r\n");
 			Printf("Example: setspeed -d 40\r\n");
+			Printf("======================================\r\n");
 /**************************************************************************************************///设定速度指令
 		}else if(Command[0] == 's'&& Command[1] == 'e' && Command[2] == 't' && Command[3] == 's' && Command[4] == 'p' && Command[5] == 'e'&& Command[6] == 'e' && Command[7] == 'd')
 		{
@@ -112,6 +116,7 @@ void Select_order(void)
 			}
 			EEPROM_Write(0x00,setspeed);//更改EEPROM
 			Printf("Order:[setspeed] Excute successfully!\r\n");
+			Printf("======================================\r\n");
 /**************************************************************************************************///设定角度指令
 		}else if(Command[0] == 's'&& Command[1] == 'e' && Command[2] == 't' && Command[3] == 'a' && Command[4] == 'n' && Command[5] == 'g'&& Command[6] == 'l' && Command[7] == 'e')
 		{
@@ -147,6 +152,7 @@ void Select_order(void)
 			EEPROM_Write(0x01,setangle_buff);//更改EEPROM
 			setangle = setangle_buff;//更改后立即执行
 			Printf("Order:[setangle] Excute successfully!\r\n");
+			Printf("======================================\r\n");
 /**************************************************************************************************///设定模式指令
 		}else if(Command[0] == 's'&& Command[1] == 'e' && Command[2] == 't' && Command[3] == 'm' && Command[4] == 'o' && Command[5] == 'd' && Command[6] == 'e')
 		{
@@ -163,6 +169,7 @@ void Select_order(void)
 				Printf("Wrong Input!\r\n");//输入非法提示
 			}
 			Printf("Order:[setmode] Excute successfully!\r\n");
+			Printf("======================================\r\n");
 /**************************************************************************************************///设定转向指令
 		}else if(Command[0] == 's'&& Command[1] == 'e' && Command[2] == 't' && Command[3] == 'd' && Command[4] == 'i' && Command[5] == 'r')
 		{
@@ -177,6 +184,7 @@ void Select_order(void)
 				Printf("Wrong Input!\r\n");//输入非法提示
 			}
 			Printf("Order:[setdir] Excute successfully!\r\n");
+			Printf("======================================\r\n");
 /**************************************************************************************************///设定PID参数 P
 		}else if(Command[0] == 's'&& Command[1] == 'e' && Command[2] == 't' && Command[3] == 'k' && Command[4] == 'p')
 		{
@@ -193,6 +201,7 @@ void Select_order(void)
 				Printf("Wrong Input!\r\n");//输入非法提示
 			}
 			Printf("Order:[setkp] Excute successfully!\r\n");
+			Printf("======================================\r\n");
 /**************************************************************************************************///设定PID参数 I
 		}else if(Command[0] == 's'&& Command[1] == 'e' && Command[2] == 't' && Command[3] == 'k' && Command[4] == 'i')
 		{
@@ -209,6 +218,7 @@ void Select_order(void)
 				Printf("Wrong Input!\r\n");//输入非法提示
 			}
 			Printf("Order:[setki] Excute successfully!\r\n");
+			Printf("======================================\r\n");
 /**************************************************************************************************///设定PID参数 D
 		}else if(Command[0] == 's'&& Command[1] == 'e' && Command[2] == 't' && Command[3] == 'k' && Command[4] == 'd')
 		{
@@ -225,9 +235,11 @@ void Select_order(void)
 				Printf("Wrong Input!\r\n");//输入非法提示
 			}
 			Printf("Order:[setkd] Excute successfully!\r\n");
+			Printf("======================================\r\n");
 		}else
 		{
 			Printf("Wrong Order!\r\n");
+			Printf("======================================\r\n");
 		}
 /**************************************************************************************************/
 		USART_RX_STA=0;

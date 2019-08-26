@@ -41,11 +41,11 @@ void float_to_char(float number,char buff[8])
 *		线框1			容纳  Setspeed Setangle 和 方向提示符
 *		线框2			容纳	Speed Angle Skap
 *		线框3			容纳	动态图像 目标速度线 当前速度关于时间的函数图像
-*		线框4			容纳	动态图像 当前角度关于时间的函数图像
+*		线框4			容纳	动态图像 目标角度线 当前角度关于时间的函数图像
 *		线框5			容纳	Kp Ki Kd Key MP 误差过大报警提示符
 */
 
-void UI_Working(void)
+void UI_Working(void)//叹号是因为char和u8判断为不同类型...
 {
 	/*外部变量定义*/
 	extern int setspeed;//速度设定值

@@ -10,7 +10,7 @@
 *		va_start(ap, Data);//对ap 进行初始化，让它指向可变参数表里面的第一个参数，
 */
 
-void Printf(char* Data, ... )
+void Printf(char* Data, ... )//第一个参数中包含了参数个数的信息，通过标志百分号加参数标志表示
 {
 	const char *s;
 	int d;  
@@ -18,12 +18,12 @@ void Printf(char* Data, ... )
 	char buf[16];//储存int型数据转化为char型
 	
 	va_list ap;//创建参数地址表列
-	va_start(ap, Data);//对ap 进行初始化，让它指向可变参数表里面的第一个参数Data，
+	va_start(ap, Data);//对ap 进行初始化，让它指向可变参数表里面的第一个参数，
 
 	while (*Data != 0 )// 判断是否到达字符串结束符
-	{				                          
+	{                    
 		if (*Data == 0x5c )//判断是否为反斜杠
-		{									  
+		{					  
 			switch (*++Data )//根据反斜杠后的标识符执行格式控制
 			{
 				case 'r':
@@ -36,17 +36,17 @@ void Printf(char* Data, ... )
 				Data ++;
 				break;
 
-				default://非标准格式控制符
+				default://非标准格式控制符原样输出
 				Data ++;
 				break;
-			}			 
+			}
 		}
-		else if (*Data == '%')//如果是类型空字符
+		else if (*Data == '%')//如果是类型控制符
 		{
 			switch (*++Data)
 			{				
 				case 's': //字符串
-				s = va_arg(ap, const char *);
+				s = va_arg(ap, const char *);//按照字符串型将当前变参数保存|访问一次后ap指向下一个变参数
 				
 				for ( ; *s; s++) 
 				{
@@ -86,9 +86,9 @@ void Printf(char* Data, ... )
 			}
 		}
 		
-		else USART_SendData(USART1, *Data++);
+		else USART_SendData(USART1, *Data++);//不是反斜杠就是说明字符，原样输出即可
 		
-		while ( USART_GetFlagStatus ( USART1, USART_FLAG_TXE ) == RESET );
+		while ( USART_GetFlagStatus ( USART1, USART_FLAG_TXE ) == RESET );//等待发送完毕
 		
 	}
 }

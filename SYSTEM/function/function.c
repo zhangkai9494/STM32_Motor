@@ -100,9 +100,9 @@ void Key_function(u8 key)
 		case 6:setangle_buff--;EEPROM_Write(0x01,setangle_buff);EP_FLAG |= 0x02;delay_ms(50);EEPROM_Write(0x1B,EP_FLAG);break;
 		//降低设定的角度|每次降低都将刷新EEPROM的对应内存地址
 		case 7:buff = skap;skap = 0;delay_ms(100);skap = buff;Dir_rand = Motor_dir(0);EEPROM_Write(0x02,Dir_rand);EP_FLAG |= 0x04;EEPROM_Write(0x1B,EP_FLAG);break;
-		//设置电机为反|每次按下都将刷新EEPROM的对应内存地址
+		//设置电机反转|每次按下都将刷新EEPROM的对应内存地址
 		case 8:if(mp>0.00001) mp *= 0.1;else mp = 1.0;delay_ms(50);break;
-		//调整PID调整系数|每次按下减小1倍
+		//调整PID调整系数|每次按下减小10倍
 		case 9:kp += 1 * mp;if(Mode){EEPROM_WriteFloat(0x03,kp);EP_FLAG |= 0x08;EEPROM_Write(0x1B,EP_FLAG);}else{EEPROM_WriteFloat(0x23,kp);EP_FLAG |= 0x08;EEPROM_Write(0x1B,EP_FLAG);}delay_ms(50);break;
 		//根据调整系数增加KP|根据模式存放数据于对应地址
 		case 10:Mode = !Mode;Mode_Switch(Mode);delay_ms(100);break;
@@ -123,7 +123,7 @@ void Key_function(u8 key)
 	}
 }
 
-void SpeedWarning_function(void)
+void SpeedWarning_function(void)//失速报警函数
 {
 	if((setspeed-Motor_Read_Speed()>20||setspeed-Motor_Read_Speed()<-20) && Mode)//误差超过20并且在模式1下报警
 	{
@@ -134,7 +134,7 @@ void SpeedWarning_function(void)
 	}
 }
 
-void SpeedLimi_function(void)
+void SpeedLimi_function(void)//速度限制函数
 {
 	/*之前是25-70|因为调整角度时速度可以达到0，故更改，但是实际速度范围仍然为25-30*/
 	if(setspeed>70)
@@ -146,7 +146,7 @@ void SpeedLimi_function(void)
 	}
 }
 
-void SkipLimit_function(void)
+void SkipLimit_function(void)//空占比限制函数
 {
 	if(skap>999)
 	{
@@ -157,7 +157,7 @@ void SkipLimit_function(void)
 	}
 }
 
-void InitializeByEEPROM_function(void)
+void InitializeByEEPROM_function(void)//从EEPROM初始化函数
 {
 	EP_FLAG = EEPROM_Read(0x1B);//获取标志位,根据标志位初始化
 	if(( EP_FLAG&0x01) == 0x01) setspeed = EEPROM_Read(0x00);//初始化速度
